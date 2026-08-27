@@ -75,6 +75,26 @@
             box-shadow: 0 6px 25px rgba(197, 155, 39, 0.5);
         }
 
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 0.85rem 2rem;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .btn-outline:hover {
+            background: var(--gold);
+            color: var(--bg-deep);
+        }
+
         /* Cabeçalho */
         header {
             position: fixed;
@@ -116,14 +136,14 @@
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 1.8rem;
+            gap: 1.5rem;
             align-items: center;
         }
 
         .nav-menu a {
             color: var(--text-light);
             text-decoration: none;
-            font-size: 0.92rem;
+            font-size: 0.9rem;
             font-weight: 500;
             transition: var(--transition);
         }
@@ -192,6 +212,12 @@
             color: var(--text-muted);
             margin-bottom: 2.5rem;
             max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .hero-image-wrapper {
@@ -433,6 +459,13 @@
             margin-bottom: 1.5rem;
         }
 
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
         .form-control {
             width: 100%;
             padding: 1rem;
@@ -453,7 +486,11 @@
 
         textarea.form-control {
             resize: vertical;
-            height: 140px;
+            height: 120px;
+        }
+
+        select.form-control {
+            cursor: pointer;
         }
 
         /* Botão Flutuante WhatsApp */
@@ -481,7 +518,7 @@
             background-color: #20ba5a;
         }
 
-        /* Modal Geral */
+        /* Modais */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -513,6 +550,8 @@
             width: 90%;
             position: relative;
             box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .modal-close {
@@ -607,7 +646,7 @@
                 backdrop-filter: blur(16px);
                 flex-direction: column;
                 justify-content: center;
-                gap: 2rem;
+                gap: 1.5rem;
                 transition: var(--transition);
                 border-top: 1px solid rgba(197, 155, 39, 0.15);
             }
@@ -641,7 +680,8 @@
                     <li><a href="#areas" class="nav-link" data-i18n="nav-areas">Áreas de Prática</a></li>
                     <li><a href="#publicacoes" class="nav-link" data-i18n="nav-pubs">Publicações</a></li>
                     <li><a href="#contacto" class="nav-link" data-i18n="nav-contact">Contacto</a></li>
-                    <li><button class="portal-btn" onclick="openPortalModal()" data-i18n="nav-portal">Portal do Cliente</button></li>
+                    <li><button class="btn-gold" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="openBookingModal()" data-i18n="nav-book">Agendar Consulta</button></li>
+                    <li><button class="portal-btn" onclick="openPortalModal()" data-i18n="nav-portal">Portal</button></li>
                     <li><button class="lang-btn" id="langToggle">EN</button></li>
                 </ul>
             </nav>
@@ -654,9 +694,12 @@
             <div class="hero-content">
                 <h1 data-i18n="hero-title">Excelência Jurídica com <span>Confiança e Resultados</span></h1>
                 <p data-i18n="hero-desc">Parceiro estratégico de alta reputação em advocacia corporativa e contencioso complexo, unindo rigor académico internacional e visão negocial de vanguarda.</p>
-                <a href="https://wa.me/244939515828?text=Olá%20Dr.%20Armindo,%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" class="btn-gold">
-                    <i class="fa-brands fa-whatsapp"></i> <span data-i18n="hero-btn">Agende uma Consulta</span>
-                </a>
+                <div class="hero-buttons">
+                    <button class="btn-gold" onclick="openBookingModal()">
+                        <i class="fa-regular fa-calendar-days"></i> <span data-i18n="hero-btn-book">Agendar Reunião</span>
+                    </button>
+                    <a href="#contacto" class="btn-outline" data-i18n="hero-btn-contact">Fale Connosco</a>
+                </div>
             </div>
             <div class="hero-image-wrapper">
                 <div class="hero-image-frame">
@@ -804,6 +847,51 @@
         </div>
     </section>
 
+    <!-- Modal de Agendamento Online -->
+    <div class="modal-overlay" id="bookingModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeBookingModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h2 style="color: var(--gold); margin-bottom: 0.5rem;" data-i18n="booking-modal-title">Agendamento de Consulta</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem;" data-i18n="booking-modal-desc">Selecione a data, horário e modalidade pretendida. A confirmação é integrada diretamente via WhatsApp.</p>
+            
+            <form id="booking-form">
+                <div class="form-group">
+                    <label class="form-label" data-i18n="book-lbl-name">Nome Completo</label>
+                    <input type="text" id="book-name" class="form-control" required data-i18n-ph="form-name-ph">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="book-lbl-email">E-mail de Contacto</label>
+                    <input type="email" id="book-email" class="form-control" required data-i18n-ph="form-email-ph">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="book-lbl-date">Data Pretendida</label>
+                        <input type="date" id="book-date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="book-lbl-time">Horário</label>
+                        <select id="book-time" class="form-control" required>
+                            <option value="09:00">09:00 - 10:00</option>
+                            <option value="11:00">11:00 - 12:00</option>
+                            <option value="14:30">14:30 - 15:30</option>
+                            <option value="16:30">16:30 - 17:30</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="book-lbl-type">Formato da Consulta</label>
+                    <select id="book-type" class="form-control">
+                        <option value="Presencial (Luanda)" data-i18n="book-opt-1">Presencial (Escritório em Luanda)</option>
+                        <option value="Videoconferência" data-i18n="book-opt-2">Videoconferência (Online)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; margin-top: 1rem;" data-i18n="booking-submit-btn">
+                    Confirmar Agendamento via WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- Modal de Artigos -->
     <div class="modal-overlay" id="articleModal">
         <div class="modal-content">
@@ -823,10 +911,10 @@
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Identificador de Cliente / Processo" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-top: 1rem;">
                     <input type="password" class="form-control" placeholder="Palavra-passe Segura" required>
                 </div>
-                <button type="submit" class="btn-gold" style="width: 100%; justify-content: center;" data-i18n="portal-modal-btn">Aceder ao Portal</button>
+                <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; margin-top: 1.5rem;" data-i18n="portal-modal-btn">Aceder ao Portal</button>
             </form>
         </div>
     </div>
@@ -869,7 +957,7 @@
             });
         });
 
-        // Formulário para WhatsApp
+        // Formulário de Contacto para WhatsApp
         document.getElementById('whatsapp-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const nome = document.getElementById('form-name').value;
@@ -881,11 +969,44 @@
             window.open(urlWp, '_blank');
         });
 
+        // Formulário de Agendamento Online
+        document.getElementById('booking-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nome = document.getElementById('book-name').value;
+            const email = document.getElementById('book-email').value;
+            const data = document.getElementById('book-date').value;
+            const horario = document.getElementById('book-time').value;
+            const tipo = document.getElementById('book-type').value;
+
+            const textoWp = `📅 *Solicitação de Agendamento - Dr. Armindo Sá Silva*\n\n*Nome:* ${nome}\n*E-mail:* ${email}\n*Data Pretendida:* ${data}\n*Horário:* ${horario}\n*Modalidade:* ${tipo}`;
+            const urlWp = `https://wa.me/244939515828?text=${encodeURIComponent(textoWp)}`;
+            
+            closeBookingModal();
+            window.open(urlWp, '_blank');
+        });
+
+        // Modais Control
+        function openBookingModal() {
+            document.getElementById('bookingModal').classList.add('active');
+            navMenu.classList.remove('active');
+        }
+        function closeBookingModal() {
+            document.getElementById('bookingModal').classList.remove('active');
+        }
+
+        function openPortalModal() {
+            document.getElementById('portalModal').classList.add('active');
+            navMenu.classList.remove('active');
+        }
+        function closePortalModal() {
+            document.getElementById('portalModal').classList.remove('active');
+        }
+
         // Modal de Artigos
         const articles = {
             1: {
                 title: "Desafios da Governança Corporativa em Mercados Emergentes",
-                body: "A governança corporativa em mercados em desenvolvimento exige uma atenção redobrada à conformidade regulatória e à transparência fiduciária. Administradores enfrentam passivos ocultos complexos que necessitam de auditorias legais preventivas rigorosas para proteger o património societário."
+                body: "A governança corporativa em mercados em desenvolvimento exige uma atenção redobrada à conformidade regulatória e à transparência fiduciária. Administradores enfrentam passivos ocultos complexos que necessitam de auditorias legais preventive rigorosas para proteger o património societário."
             },
             2: {
                 title: "A Eficácia da Arbitragem Internacional na Resolução de Conflitos",
@@ -903,24 +1024,14 @@
             document.getElementById('articleModal').classList.remove('active');
         }
 
-        // Modal Portal do Cliente
-        function openPortalModal() {
-            document.getElementById('portalModal').classList.add('active');
-            navMenu.classList.remove('active');
-        }
-
-        function closePortalModal() {
-            document.getElementById('portalModal').classList.remove('active');
-        }
-
         // Dicionário de Idiomas (PT / EN)
         const translations = {
             pt: {
                 subtitle: "Dr. Armindo Sá Silva — Advogado Sénior",
-                "nav-home": "Home", "nav-about": "Sobre", "nav-areas": "Áreas de Prática", "nav-pubs": "Publicações", "nav-contact": "Contacto", "nav-portal": "Portal do Cliente",
+                "nav-home": "Home", "nav-about": "Sobre", "nav-areas": "Áreas de Prática", "nav-pubs": "Publicações", "nav-contact": "Contacto", "nav-book": "Agendar Consulta", "nav-portal": "Portal",
                 "hero-title": "Excelência Jurídica com <span>Confiança e Resultados</span>",
                 "hero-desc": "Parceiro estratégico de alta reputação em advocacia corporativa e contencioso complexo, unindo rigor académico internacional e visão negocial de vanguarda.",
-                "hero-btn": "Agende uma Consulta",
+                "hero-btn-book": "Agendar Reunião", "hero-btn-contact": "Fale Connosco",
                 "about-title": "Liderança e <span>Prestígio Jurídico</span>",
                 "about-text1": "O <strong>Dr. Armindo Sá Silva</strong> é um Advogado Sénior com vasta trajectória nacional e internacional na assessoria a grandes corporações, investidores institucionais e figuras de relevo. Pautando a sua actuação por padrões rigorosos de ética, sigilo absoluto e eficácia estratégica.",
                 "about-text2": "Sua actuação foca-se na antecipação de riscos legais e na resolução de litígios complexos, garantindo segurança jurídica absoluta aos seus constituintes.",
@@ -940,15 +1051,19 @@
                 "contact-phone-label": "WhatsApp / Telefone Directo", "contact-social-label": "Rede Profissional", "contact-social-link": "Ver Perfil no LinkedIn",
                 "form-name-ph": "Seu Nome Completo", "form-email-ph": "Seu Endereço de Email", "form-msg-ph": "Descreva brevemente o assunto ou consulta...",
                 "form-btn": "Solicite uma Consulta via WhatsApp",
+                "booking-modal-title": "Agendamento de Consulta", "booking-modal-desc": "Selecione a data, horário e modalidade pretendida. A confirmação é integrada diretamente via WhatsApp.",
+                "book-lbl-name": "Nome Completo", "book-lbl-email": "E-mail de Contacto", "book-lbl-date": "Data Pretendida", "book-lbl-time": "Horário", "book-lbl-type": "Formato da Consulta",
+                "book-opt-1": "Presencial (Escritório em Luanda)", "book-opt-2": "Videoconferência (Online)",
+                "booking-submit-btn": "Confirmar Agendamento via WhatsApp",
                 "portal-modal-title": "Portal do Cliente", "portal-modal-desc": "Insira as suas credenciais fornecidas pelo escritório para acesso seguro aos autos e relatórios de progresso.", "portal-modal-btn": "Aceder ao Portal",
                 "footer-legal": "Aviso Legal: A informação contida neste website tem fins estritamente informativos e não constitui aconselhamento jurídico. A comunicação através deste canal não estabelece, por si só, uma relação advogado-cliente formal até que a representação seja expressamente aceite por escrito."
             },
             en: {
                 subtitle: "Dr. Armindo Sá Silva — Senior Counsel",
-                "nav-home": "Home", "nav-about": "About", "nav-areas": "Practice Areas", "nav-pubs": "Publications", "nav-contact": "Contact", "nav-portal": "Client Portal",
+                "nav-home": "Home", "nav-about": "About", "nav-areas": "Practice Areas", "nav-pubs": "Publications", "nav-contact": "Contact", "nav-book": "Book Consultation", "nav-portal": "Portal",
                 "hero-title": "Legal Excellence with <span>Confidence & Results</span>",
                 "hero-desc": "High-reputation strategic partner in corporate law and complex litigation, bridging international academic rigor with cutting-edge business vision.",
-                "hero-btn": "Schedule a Consultation",
+                "hero-btn-book": "Schedule Meeting", "hero-btn-contact": "Contact Us",
                 "about-title": "Leadership and <span>Legal Prestige</span>",
                 "about-text1": "Dr. Armindo Sá Silva is a Senior Counsel with an extensive national and international track record advising major corporations, institutional investors, and prominent figures, upholding rigorous standards of ethics, absolute confidentiality, and strategic efficiency.",
                 "about-text2": "His practice focuses on anticipating legal risks and resolving complex disputes, ensuring absolute legal security for clients.",
@@ -968,6 +1083,10 @@
                 "contact-phone-label": "WhatsApp / Direct Phone", "contact-social-label": "Professional Network", "contact-social-link": "View LinkedIn Profile",
                 "form-name-ph": "Your Full Name", "form-email-ph": "Your Email Address", "form-msg-ph": "Briefly describe the matter or consultation...",
                 "form-btn": "Request Consultation via WhatsApp",
+                "booking-modal-title": "Schedule a Consultation", "booking-modal-desc": "Select the preferred date, time slot, and format. Confirmation is seamlessly integrated via WhatsApp.",
+                "book-lbl-name": "Full Name", "book-lbl-email": "Contact Email", "book-lbl-date": "Preferred Date", "book-lbl-time": "Time Slot", "book-lbl-type": "Consultation Format",
+                "book-opt-1": "In-Person (Luanda Office)", "book-opt-2": "Videoconference (Online)",
+                "booking-submit-btn": "Confirm Booking via WhatsApp",
                 "portal-modal-title": "Client Portal", "portal-modal-desc": "Enter your credentials provided by the firm for secure access to case files and progress reports.", "portal-modal-btn": "Access Portal",
                 "footer-legal": "Legal Notice: The information contained in this website is for informational purposes only and does not constitute legal advice. Communication through this channel does not establish a formal attorney-client relationship until representation is expressly accepted in writing."
             }
