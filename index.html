@@ -1,9 +1,16 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt" id="html-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Armindo Sá Silva | Advogado Sénior</title>
+    <title>Dr. Armindo Sá Silva | Advogado Sénior — Sá Silva Advocatus</title>
+    
+    <!-- Meta Tags Open Graph / SEO -->
+    <meta property="og:title" content="Dr. Armindo Sá Silva | Advogado Sénior">
+    <meta property="og:description" content="Excelência jurídica em advocacia corporativa, contencioso complexo e arbitragem internacional.">
+    <meta property="og:image" content="2026-08-27 134839.jpg">
+    <meta property="og:type" content="website">
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚖️</text></svg>">
     <!-- Google Fonts -->
@@ -41,7 +48,6 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* Utilitários */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -110,20 +116,37 @@
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 1.8rem;
             align-items: center;
         }
 
         .nav-menu a {
             color: var(--text-light);
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 500;
             transition: var(--transition);
         }
 
         .nav-menu a:hover {
             color: var(--gold);
+        }
+
+        .lang-btn, .portal-btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .lang-btn:hover, .portal-btn:hover {
+            background: var(--gold);
+            color: var(--bg-deep);
         }
 
         .hamburger {
@@ -356,6 +379,12 @@
             align-items: center;
             gap: 0.5rem;
             transition: var(--transition);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.95rem;
+            padding: 0;
         }
 
         .read-more:hover {
@@ -427,6 +456,81 @@
             height: 140px;
         }
 
+        /* Botão Flutuante WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            color: #FFF;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #20ba5a;
+        }
+
+        /* Modal Geral */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--gold);
+            padding: 2.5rem;
+            border-radius: 12px;
+            max-width: 650px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--gold);
+        }
+
         /* Rodapé */
         footer {
             background-color: #0A0F1D;
@@ -477,7 +581,7 @@
             padding-top: 2rem;
         }
 
-        /* Responsividade e Menu Mobile */
+        /* Responsividade */
         @media (max-width: 968px) {
             .hero-grid, .about-grid, .contact-grid {
                 grid-template-columns: 1fr;
@@ -515,23 +619,30 @@
 </head>
 <body>
 
+    <!-- Botão Flutuante WhatsApp -->
+    <a href="https://wa.me/244939515828?text=Olá%20Dr.%20Armindo,%20gostaria%20de%20obter%20suporte%20jurídico." target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
     <!-- Cabeçalho Institucional -->
     <header>
         <div class="container nav-container">
             <div class="logo-area">
                 <span class="logo-title">SÁ SILVA ADVOCATUS</span>
-                <span class="logo-subtitle">Dr. Armindo Sá Silva — Advogado Sénior</span>
+                <span class="logo-subtitle" data-i18n="subtitle">Dr. Armindo Sá Silva — Advogado Sénior</span>
             </div>
             <nav>
                 <div class="hamburger" id="hamburger">
                     <i class="fa-solid fa-bars"></i>
                 </div>
                 <ul class="nav-menu" id="nav-menu">
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li><a href="#sobre" class="nav-link">Sobre</a></li>
-                    <li><a href="#areas" class="nav-link">Áreas de Prática</a></li>
-                    <li><a href="#publicacoes" class="nav-link">Publicações</a></li>
-                    <li><a href="#contacto" class="nav-link">Contacto</a></li>
+                    <li><a href="#home" class="nav-link" data-i18n="nav-home">Home</a></li>
+                    <li><a href="#sobre" class="nav-link" data-i18n="nav-about">Sobre</a></li>
+                    <li><a href="#areas" class="nav-link" data-i18n="nav-areas">Áreas de Prática</a></li>
+                    <li><a href="#publicacoes" class="nav-link" data-i18n="nav-pubs">Publicações</a></li>
+                    <li><a href="#contacto" class="nav-link" data-i18n="nav-contact">Contacto</a></li>
+                    <li><button class="portal-btn" onclick="openPortalModal()" data-i18n="nav-portal">Portal do Cliente</button></li>
+                    <li><button class="lang-btn" id="langToggle">EN</button></li>
                 </ul>
             </nav>
         </div>
@@ -541,10 +652,10 @@
     <section id="home" class="hero">
         <div class="container hero-grid">
             <div class="hero-content">
-                <h1>Excelência Jurídica com <span>Confiança e Resultados</span></h1>
-                <p>Parceiro estratégico de alta reputação em advocacia corporativa e contencioso complexo, unindo rigor académico internacional e visão negocial de vanguarda.</p>
+                <h1 data-i18n="hero-title">Excelência Jurídica com <span>Confiança e Resultados</span></h1>
+                <p data-i18n="hero-desc">Parceiro estratégico de alta reputação em advocacia corporativa e contencioso complexo, unindo rigor académico internacional e visão negocial de vanguarda.</p>
                 <a href="https://wa.me/244939515828?text=Olá%20Dr.%20Armindo,%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" class="btn-gold">
-                    <i class="fa-brands fa-whatsapp"></i> Agende uma Consulta
+                    <i class="fa-brands fa-whatsapp"></i> <span data-i18n="hero-btn">Agende uma Consulta</span>
                 </a>
             </div>
             <div class="hero-image-wrapper">
@@ -559,30 +670,30 @@
     <section id="sobre" class="about">
         <div class="container about-grid">
             <div class="about-text">
-                <h2 class="section-title">Liderança e <span>Prestígio Jurídico</span></h2>
-                <p>O <strong>Dr. Armindo Sá Silva</strong> é um Advogado Sénior com vasta trajectória nacional e internacional na assessoria a grandes corporações, investidores institucionais e figuras de relevo. Pautando a sua actuação por padrões rigorosos de ética, sigilo absoluto e eficácia estratégica.</p>
-                <p>Sua actuação foca-se na antecipação de riscos legais e na resolução de litígios complexos, garantindo segurança jurídica absoluta aos seus constituintes.</p>
+                <h2 class="section-title" data-i18n="about-title">Liderança e <span>Prestígio Jurídico</span></h2>
+                <p data-i18n="about-text1">O <strong>Dr. Armindo Sá Silva</strong> é um Advogado Sénior com vasta trajectória nacional e internacional na assessoria a grandes corporações, investidores institucionais e figuras de relevo. Pautando a sua actuação por padrões rigorosos de ética, sigilo absoluto e eficácia estratégica.</p>
+                <p data-i18n="about-text2">Sua actuação foca-se na antecipação de riscos legais e na resolução de litígios complexos, garantindo segurança jurídica absoluta aos seus constituintes.</p>
             </div>
             <div class="credentials-box">
                 <div class="credential-item">
                     <i class="fa-solid fa-graduation-cap"></i>
                     <div>
-                        <strong>Formação de Elite</strong>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Faculdade de Direito da Universidade de Coimbra.</p>
+                        <strong data-i18n="cred-title1">Formação de Elite</strong>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;" data-i18n="cred-desc1">Faculdade de Direito da Universidade de Coimbra.</p>
                     </div>
                 </div>
                 <div class="credential-item">
                     <i class="fa-solid fa-building-columns"></i>
                     <div>
-                        <strong>Afiliação Institucional</strong>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Sócio sénior afecto à <strong>Sá Silva — Sociedade de Advogados, RL</strong>.</p>
+                        <strong data-i18n="cred-title2">Afiliação Institucional</strong>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;" data-i18n="cred-desc2">Sócio sénior afecto à <strong>Sá Silva — Sociedade de Advogados, RL</strong>.</p>
                     </div>
                 </div>
                 <div class="credential-item">
                     <i class="fa-solid fa-award"></i>
                     <div>
-                        <strong>Reconhecimento</strong>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Dezenas de mandatos corporativos de alta complexidade com êxito comprovado.</p>
+                        <strong data-i18n="cred-title3">Reconhecimento</strong>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;" data-i18n="cred-desc3">Dezenas de mandatos corporativos de alta complexidade com êxito comprovado.</p>
                     </div>
                 </div>
             </div>
@@ -593,29 +704,29 @@
     <section id="areas" class="practice-areas">
         <div class="container">
             <div class="header-center">
-                <h2 class="section-title">Áreas de <span>Prática</span></h2>
-                <p style="color: var(--text-muted);">Soluções jurídicas estruturadas à medida dos desafios mais exigentes do mercado.</p>
+                <h2 class="section-title" data-i18n="areas-title">Áreas de <span>Prática</span></h2>
+                <p style="color: var(--text-muted);" data-i18n="areas-subtitle">Soluções jurídicas estruturadas à medida dos desafios mais exigentes do mercado.</p>
             </div>
             <div class="areas-grid">
                 <div class="area-card">
                     <div class="area-icon"><i class="fa-solid fa-briefcase"></i></div>
-                    <h3>Direito Empresarial</h3>
-                    <p>Fusões e aquisições (M&A), reestruturação societária, governança corporativa e contratos comerciais internacionais.</p>
+                    <h3 data-i18n="area1-title">Direito Empresarial</h3>
+                    <p data-i18n="area1-desc">Fusões e aquisições (M&A), reestruturação societária, governança corporativa e contratos comerciais internacionais.</p>
                 </div>
                 <div class="area-card">
                     <div class="area-icon"><i class="fa-solid fa-scale-balanced"></i></div>
-                    <h3>Direito Civil</h3>
-                    <p>Contencioso civil complexo, responsabilidade civil contratual e extracontratual, e protecção de património.</p>
+                    <h3 data-i18n="area2-title">Direito Civil</h3>
+                    <p data-i18n="area2-desc">Contencioso civil complexo, responsabilidade civil contratual e extracontratual, e protecção de património.</p>
                 </div>
                 <div class="area-card">
                     <div class="area-icon"><i class="fa-solid fa-gavel"></i></div>
-                    <h3>Direito Penal</h3>
-                    <p>Defesa e assistência jurídica em direito penal económico, crimes corporativos e conformidade preventiva (Compliance).</p>
+                    <h3 data-i18n="area3-title">Direito Penal</h3>
+                    <p data-i18n="area3-desc">Defesa e assistência jurídica em direito penal económico, crimes corporativos e conformidade preventiva (Compliance).</p>
                 </div>
                 <div class="area-card">
                     <div class="area-icon"><i class="fa-solid fa-handshake"></i></div>
-                    <h3>Arbitragem e Mediação</h3>
-                    <p>Resolução alternativa de litígios comerciais transfronteiriços com agilidade, confidencialidade e eficácia executiva.</p>
+                    <h3 data-i18n="area4-title">Arbitragem e Mediação</h3>
+                    <p data-i18n="area4-desc">Resolução alternativa de litígios comerciais transfronteiriços com agilidade, confidencialidade e eficácia executiva.</p>
                 </div>
             </div>
         </div>
@@ -625,25 +736,25 @@
     <section id="publicacoes" class="publications">
         <div class="container">
             <div class="header-center">
-                <h2 class="section-title">Publicações & <span>Insights</span></h2>
-                <p style="color: var(--text-muted);">Análises jurídicas estratégicas sobre temas actuais da legislação nacional e internacional.</p>
+                <h2 class="section-title" data-i18n="pubs-title">Publicações & <span>Insights</span></h2>
+                <p style="color: var(--text-muted);" data-i18n="pubs-subtitle">Análises jurídicas estratégicas sobre temas actuais da legislação nacional e internacional.</p>
             </div>
             <div class="pub-grid">
                 <div class="pub-card">
                     <div>
-                        <div class="pub-meta"><span>Direito Corporativo</span><span>4 min de leitura</span></div>
-                        <h3>Desafios da Governança Corporativa em Mercados Emergentes</h3>
-                        <p>Uma análise profunda sobre a mitigação de passivos ocultos e a responsabilidade fiduciária de administradores.</p>
+                        <div class="pub-meta"><span data-i18n="pub1-cat">Direito Corporativo</span><span>4 min</span></div>
+                        <h3 data-i18n="pub1-title">Desafios da Governança Corporativa em Mercados Emergentes</h3>
+                        <p data-i18n="pub1-desc">Uma análise profunda sobre a mitigação de passivos ocultos e a responsabilidade fiduciária de administradores.</p>
                     </div>
-                    <a href="#contacto" class="read-more">Ler Mais <i class="fa-solid fa-arrow-right"></i></a>
+                    <button class="read-more" onclick="openArticleModal(1)"><span data-i18n="read-more">Ler Mais</span> <i class="fa-solid fa-arrow-right"></i></button>
                 </div>
                 <div class="pub-card">
                     <div>
-                        <div class="pub-meta"><span>Arbitragem</span><span>6 min de leitura</span></div>
-                        <h3>A Eficácia da Arbitragem Internacional na Resolução de Conflitos</h3>
-                        <p>Por que os tribunais arbitrais se tornaram o mecanismo predilecto para investidores estrangeiros de grande porte.</p>
+                        <div class="pub-meta"><span data-i18n="pub2-cat">Arbitragem</span><span>6 min</span></div>
+                        <h3 data-i18n="pub2-title">A Eficácia da Arbitragem Internacional na Resolução de Conflitos</h3>
+                        <p data-i18n="pub2-desc">Por que os tribunais arbitrais se tornaram o mecanismo predilecto para investidores estrangeiros de grande porte.</p>
                     </div>
-                    <a href="#contacto" class="read-more">Ler Mais <i class="fa-solid fa-arrow-right"></i></a>
+                    <button class="read-more" onclick="openArticleModal(2)"><span data-i18n="read-more">Ler Mais</span> <i class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
         </div>
@@ -654,44 +765,71 @@
         <div class="container">
             <div class="contact-grid">
                 <div>
-                    <h2 class="section-title">Inicie uma <span>Conversa Reservada</span></h2>
-                    <p style="color: var(--text-muted); margin-bottom: 2.5rem;">Estamos prontos para analisar o seu caso com total confidencialidade e presteza institucional.</p>
+                    <h2 class="section-title" data-i18n="contact-title">Inicie uma <span>Conversa Reservada</span></h2>
+                    <p style="color: var(--text-muted); margin-bottom: 2.5rem;" data-i18n="contact-subtitle">Estamos prontos para analisar o seu caso com total confidencialidade e presteza institucional.</p>
                     
                     <div class="contact-info-item">
                         <div class="contact-icon"><i class="fa-brands fa-whatsapp"></i></div>
                         <div>
-                            <strong>WhatsApp / Telefone Directo</strong>
+                            <strong data-i18n="contact-phone-label">WhatsApp / Telefone Directo</strong>
                             <p style="color: var(--text-muted);">+244 939 515 828</p>
                         </div>
                     </div>
                     <div class="contact-info-item">
                         <div class="contact-icon"><i class="fa-brands fa-linkedin-in"></i></div>
                         <div>
-                            <strong>Rede Profissional</strong>
-                            <p><a href="https://linkedin.com" target="_blank" style="color: var(--gold); text-decoration: none;">Ver Perfil no LinkedIn</a></p>
+                            <strong data-i18n="contact-social-label">Rede Profissional</strong>
+                            <p><a href="https://linkedin.com" target="_blank" style="color: var(--gold); text-decoration: none;" data-i18n="contact-social-link">Ver Perfil no LinkedIn</a></p>
                         </div>
                     </div>
                 </div>
                 
                 <div class="contact-form">
-                    <form onsubmit="event.preventDefault(); alert('Mensagem enviada com sucesso. O Dr. Armindo Sá Silva entrará em contacto em breve.');">
+                    <form id="whatsapp-form">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Seu Nome Completo" required>
+                            <input type="text" id="form-name" class="form-control" placeholder="Seu Nome Completo" required data-i18n-ph="form-name-ph">
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Seu Endereço de Email" required>
+                            <input type="email" id="form-email" class="form-control" placeholder="Seu Endereço de Email" required data-i18n-ph="form-email-ph">
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" placeholder="Descreva brevemente o assunto ou consulta..." required></textarea>
+                            <textarea id="form-msg" class="form-control" placeholder="Descreva brevemente o assunto ou consulta..." required data-i18n-ph="form-msg-ph"></textarea>
                         </div>
-                        <button type="submit" class="btn-gold" style="width: 100%; justify-content: center;">
-                            Solicite uma Consulta
+                        <button type="submit" class="btn-gold" style="width: 100%; justify-content: center;" data-i18n="form-btn">
+                            Solicite uma Consulta via WhatsApp
                         </button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Modal de Artigos -->
+    <div class="modal-overlay" id="articleModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeArticleModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h2 id="modalArticleTitle" style="color: var(--gold); margin-bottom: 1rem;"></h2>
+            <p id="modalArticleBody" style="color: var(--text-muted); line-height: 1.7;"></p>
+        </div>
+    </div>
+
+    <!-- Modal Portal do Cliente -->
+    <div class="modal-overlay" id="portalModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closePortalModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h2 style="color: var(--gold); margin-bottom: 1rem;" data-i18n="portal-modal-title">Portal do Cliente</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;" data-i18n="portal-modal-desc">Insira as suas credenciais fornecidas pelo escritório para acesso seguro aos autos e relatórios de progresso.</p>
+            <form onsubmit="event.preventDefault(); alert('Autenticação simulada com sucesso.'); closePortalModal();">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Identificador de Cliente / Processo" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Palavra-passe Segura" required>
+                </div>
+                <button type="submit" class="btn-gold" style="width: 100%; justify-content: center;" data-i18n="portal-modal-btn">Aceder ao Portal</button>
+            </form>
+        </div>
+    </div>
 
     <!-- Rodapé Institucional -->
     <footer>
@@ -703,13 +841,14 @@
                 <a href="https://wa.me/244939515828" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
             </div>
             <div class="legal-notice">
-                <p>Aviso Legal: A informação contida neste website tem fins estritamente informativos e não constitui aconselhamento jurídico. A comunicação através deste canal não estabelece, por si só, uma relação advogado-cliente formal até que a representação seja expressamente aceite por escrito.</p>
+                <p data-i18n="footer-legal">Aviso Legal: A informação contida neste website tem fins estritamente informativos e não constitui aconselhamento jurídico. A comunicação através deste canal não estabelece, por si só, uma relação advogado-cliente formal até que a representação seja expressamente aceite por escrito.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Script para o Menu Mobile -->
+    <!-- Scripts e Lógica -->
     <script>
+        // Menu Mobile
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
         const navLinks = document.querySelectorAll('.nav-link');
@@ -727,6 +866,133 @@
                 const icon = hamburger.querySelector('i');
                 icon.classList.add('fa-bars');
                 icon.classList.remove('fa-xmark');
+            });
+        });
+
+        // Formulário para WhatsApp
+        document.getElementById('whatsapp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nome = document.getElementById('form-name').value;
+            const email = document.getElementById('form-email').value;
+            const mensagem = document.getElementById('form-msg').value;
+
+            const textoWp = `Olá Dr. Armindo, meu nome é *${nome}* (${email}).\n\nAssunto/Mensagem: ${mensagem}`;
+            const urlWp = `https://wa.me/244939515828?text=${encodeURIComponent(textoWp)}`;
+            window.open(urlWp, '_blank');
+        });
+
+        // Modal de Artigos
+        const articles = {
+            1: {
+                title: "Desafios da Governança Corporativa em Mercados Emergentes",
+                body: "A governança corporativa em mercados em desenvolvimento exige uma atenção redobrada à conformidade regulatória e à transparência fiduciária. Administradores enfrentam passivos ocultos complexos que necessitam de auditorias legais preventivas rigorosas para proteger o património societário."
+            },
+            2: {
+                title: "A Eficácia da Arbitragem Internacional na Resolução de Conflitos",
+                body: "Tribunais arbitrais internacionais tornaram-se a via predilecta para grandes investidores devido à confidencialidade, especialização técnica dos árbitros e celeridade na execução de sentenças transfronteiriças, superando as morosidades dos tribunais estaduais tradicionais."
+            }
+        };
+
+        function openArticleModal(id) {
+            document.getElementById('modalArticleTitle').innerText = articles[id].title;
+            document.getElementById('modalArticleBody').innerText = articles[id].body;
+            document.getElementById('articleModal').classList.add('active');
+        }
+
+        function closeArticleModal() {
+            document.getElementById('articleModal').classList.remove('active');
+        }
+
+        // Modal Portal do Cliente
+        function openPortalModal() {
+            document.getElementById('portalModal').classList.add('active');
+            navMenu.classList.remove('active');
+        }
+
+        function closePortalModal() {
+            document.getElementById('portalModal').classList.remove('active');
+        }
+
+        // Dicionário de Idiomas (PT / EN)
+        const translations = {
+            pt: {
+                subtitle: "Dr. Armindo Sá Silva — Advogado Sénior",
+                "nav-home": "Home", "nav-about": "Sobre", "nav-areas": "Áreas de Prática", "nav-pubs": "Publicações", "nav-contact": "Contacto", "nav-portal": "Portal do Cliente",
+                "hero-title": "Excelência Jurídica com <span>Confiança e Resultados</span>",
+                "hero-desc": "Parceiro estratégico de alta reputação em advocacia corporativa e contencioso complexo, unindo rigor académico internacional e visão negocial de vanguarda.",
+                "hero-btn": "Agende uma Consulta",
+                "about-title": "Liderança e <span>Prestígio Jurídico</span>",
+                "about-text1": "O <strong>Dr. Armindo Sá Silva</strong> é um Advogado Sénior com vasta trajectória nacional e internacional na assessoria a grandes corporações, investidores institucionais e figuras de relevo. Pautando a sua actuação por padrões rigorosos de ética, sigilo absoluto e eficácia estratégica.",
+                "about-text2": "Sua actuação foca-se na antecipação de riscos legais e na resolução de litígios complexos, garantindo segurança jurídica absoluta aos seus constituintes.",
+                "cred-title1": "Formação de Elite", "cred-desc1": "Faculdade de Direito da Universidade de Coimbra.",
+                "cred-title2": "Afiliação Institucional", "cred-desc2": "Sócio sénior afecto à <strong>Sá Silva — Sociedade de Advogados, RL</strong>.",
+                "cred-title3": "Reconhecimento", "cred-desc3": "Dezenas de mandatos corporativos de alta complexidade com êxito comprovado.",
+                "areas-title": "Áreas de <span>Prática</span>", "areas-subtitle": "Soluções jurídicas estruturadas à medida dos desafios mais exigentes do mercado.",
+                "area1-title": "Direito Empresarial", "area1-desc": "Fusões e aquisições (M&A), reestruturação societária, governança corporativa e contratos comerciais internacionais.",
+                "area2-title": "Direito Civil", "area2-desc": "Contencioso civil complexo, responsabilidade civil contratual e extracontratual, e protecção de património.",
+                "area3-title": "Direito Penal", "area3-desc": "Defesa e assistência jurídica em direito penal económico, crimes corporativos e conformidade preventiva (Compliance).",
+                "area4-title": "Arbitragem e Mediação", "area4-desc": "Resolução alternativa de litígios comerciais transfronteiriços com agilidade, confidencialidade e eficácia executiva.",
+                "pubs-title": "Publicações & <span>Insights</span>", "pubs-subtitle": "Análises jurídicas estratégicas sobre temas actuais da legislação nacional e internacional.",
+                "pub1-cat": "Direito Corporativo", "pub1-title": "Desafios da Governança Corporativa em Mercados Emergentes", "pub1-desc": "Uma análise profunda sobre a mitigação de passivos ocultos e a responsabilidade fiduciária de administradores.",
+                "pub2-cat": "Arbitragem", "pub2-title": "A Eficácia da Arbitragem Internacional na Resolução de Conflitos", "pub2-desc": "Por que os tribunais arbitrais se tornaram o mecanismo predilecto para investidores estrangeiros de grande porte.",
+                "read-more": "Ler Mais",
+                "contact-title": "Inicie uma <span>Conversa Reservada</span>", "contact-subtitle": "Estamos prontos para analisar o seu caso com total confidencialidade e presteza institucional.",
+                "contact-phone-label": "WhatsApp / Telefone Directo", "contact-social-label": "Rede Profissional", "contact-social-link": "Ver Perfil no LinkedIn",
+                "form-name-ph": "Seu Nome Completo", "form-email-ph": "Seu Endereço de Email", "form-msg-ph": "Descreva brevemente o assunto ou consulta...",
+                "form-btn": "Solicite uma Consulta via WhatsApp",
+                "portal-modal-title": "Portal do Cliente", "portal-modal-desc": "Insira as suas credenciais fornecidas pelo escritório para acesso seguro aos autos e relatórios de progresso.", "portal-modal-btn": "Aceder ao Portal",
+                "footer-legal": "Aviso Legal: A informação contida neste website tem fins estritamente informativos e não constitui aconselhamento jurídico. A comunicação através deste canal não estabelece, por si só, uma relação advogado-cliente formal até que a representação seja expressamente aceite por escrito."
+            },
+            en: {
+                subtitle: "Dr. Armindo Sá Silva — Senior Counsel",
+                "nav-home": "Home", "nav-about": "About", "nav-areas": "Practice Areas", "nav-pubs": "Publications", "nav-contact": "Contact", "nav-portal": "Client Portal",
+                "hero-title": "Legal Excellence with <span>Confidence & Results</span>",
+                "hero-desc": "High-reputation strategic partner in corporate law and complex litigation, bridging international academic rigor with cutting-edge business vision.",
+                "hero-btn": "Schedule a Consultation",
+                "about-title": "Leadership and <span>Legal Prestige</span>",
+                "about-text1": "Dr. Armindo Sá Silva is a Senior Counsel with an extensive national and international track record advising major corporations, institutional investors, and prominent figures, upholding rigorous standards of ethics, absolute confidentiality, and strategic efficiency.",
+                "about-text2": "His practice focuses on anticipating legal risks and resolving complex disputes, ensuring absolute legal security for clients.",
+                "cred-title1": "Elite Education", "cred-desc1": "Faculty of Law of the University of Coimbra.",
+                "cred-title2": "Institutional Affiliation", "cred-desc2": "Senior partner at <strong>Sá Silva — Sociedade de Advogados, RL</strong>.",
+                "cred-title3": "Recognition", "cred-desc3": "Dozens of high-complexity corporate mandates successfully handled.",
+                "areas-title": "Practice <span>Areas</span>", "areas-subtitle": "Tailored legal solutions designed for the market's most demanding challenges.",
+                "area1-title": "Corporate Law", "area1-desc": "Mergers and acquisitions (M&A), corporate restructuring, corporate governance, and international commercial contracts.",
+                "area2-title": "Civil Law", "area2-desc": "Complex civil litigation, contractual and tort liability, and asset protection.",
+                "area3-title": "Criminal Law", "area3-desc": "Defense and legal assistance in economic criminal law, corporate crimes, and preventive compliance.",
+                "area4-title": "Arbitration & Mediation", "area4-desc": "Alternative dispute resolution for cross-border commercial disputes with agility, confidentiality, and executive efficacy.",
+                "pubs-title": "Publications & <span>Insights</span>", "pubs-subtitle": "Strategic legal analyses on current national and international legislative trends.",
+                "pub1-cat": "Corporate Law", "pub1-title": "Challenges of Corporate Governance in Emerging Markets", "pub1-desc": "An in-depth analysis on mitigating hidden liabilities and directors' fiduciary duties.",
+                "pub2-cat": "Arbitration", "pub2-title": "The Efficacy of International Arbitration in Dispute Resolution", "pub2-desc": "Why arbitral tribunals have become the preferred mechanism for large foreign investors.",
+                "read-more": "Read More",
+                "contact-title": "Initiate a <span>Confidential Conversation</span>", "contact-subtitle": "We are ready to evaluate your case with total discretion and institutional promptness.",
+                "contact-phone-label": "WhatsApp / Direct Phone", "contact-social-label": "Professional Network", "contact-social-link": "View LinkedIn Profile",
+                "form-name-ph": "Your Full Name", "form-email-ph": "Your Email Address", "form-msg-ph": "Briefly describe the matter or consultation...",
+                "form-btn": "Request Consultation via WhatsApp",
+                "portal-modal-title": "Client Portal", "portal-modal-desc": "Enter your credentials provided by the firm for secure access to case files and progress reports.", "portal-modal-btn": "Access Portal",
+                "footer-legal": "Legal Notice: The information contained in this website is for informational purposes only and does not constitute legal advice. Communication through this channel does not establish a formal attorney-client relationship until representation is expressly accepted in writing."
+            }
+        };
+
+        let currentLang = 'pt';
+        const langToggleBtn = document.getElementById('langToggle');
+
+        langToggleBtn.addEventListener('click', () => {
+            currentLang = currentLang === 'pt' ? 'en' : 'pt';
+            langToggleBtn.innerText = currentLang === 'pt' ? 'EN' : 'PT';
+            document.getElementById('html-root').setAttribute('lang', currentLang);
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerHTML = translations[currentLang][key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+                const key = el.getAttribute('data-i18n-ph');
+                if (translations[currentLang][key]) {
+                    el.placeholder = translations[currentLang][key];
+                }
             });
         });
     </script>
